@@ -1,11 +1,12 @@
 import sys
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QTableWidgetItem, QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QTableWidgetItem, QMainWindow, QFileDialog, QButtonGroup
 import openpyxl
-from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QApplication, QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class MainWindow(QMainWindow):
@@ -22,6 +23,9 @@ class MainWindow(QMainWindow):
         self.tableWidget.setColumnWidth(0, 40)
         self.tableWidget.setColumnWidth(1, 40)
         self.spin.setMaximum(10000)
+        self.button_group = QButtonGroup()
+        self.button_group.addButton(self.linear_radioButton)
+        self.button_group.addButton(self.nonlinear_radioButton)
         self.contact()
 
     # взаимодействие интерфейса с методами
@@ -31,17 +35,61 @@ class MainWindow(QMainWindow):
         self.clear_button_table.clicked.connect(self.clear_table)
         self.run_button.clicked.connect(self.show_graphic)
         self.spin.valueChanged.connect(self.change)
+        self.button_group.buttonClicked.connect(self.on_radio_button_clicked)
+
 
     # *****************************************************************************
+    # проверка на то какой чек бокс нажат возвращает True в случае линейной и False в случае нелинейной
+    def on_radio_button_clicked(self):
+        if self.linear_radioButton.isChecked():
+            return True
+        else:
+            return False
+
     # получение значений из таблицы по X и по Y
     def get_Value_table(self):
         self.value_table_X = []
         self.value_table_Y = []
-        for i in range(self.tableWidget.rowCount()):
-            self.value_table_X.append(int(self.tableWidget.item(i, 0).text()))
-            self.value_table_Y.append(int(self.tableWidget.item(i, 1).text()))
-        self.textBrowser.append(f'X: {", ".join(list(map(str, self.value_table_X)))}')
-        self.textBrowser.append(f'Y: {", ".join(list(map(str, self.value_table_Y)))}')
+        if self.tableWidget.rowCount() != 0:
+            for i in range(self.tableWidget.rowCount()):
+                try:
+                    self.value_table_X.append(int(self.tableWidget.item(i, 0).text()))
+                    self.value_table_Y.append(int(self.tableWidget.item(i, 1).text()))
+                except:
+                    ...
+            if not self.value_table_X or not self.value_table_Y:
+                self.popup_action()
+            else:
+                self.textBrowser.append(f'X: {", ".join(list(map(str, self.value_table_X)))}')
+                self.textBrowser.append(f'Y: {", ".join(list(map(str, self.value_table_Y)))}')
+        else:
+            self.popup_action()
+
+    # функция появления всплывающего окна "введите точки для построения графика"
+    def popup_action(self):
+        error = QMessageBox()
+        error.setWindowTitle("Ошибка")
+        error.setText("Введите точки по X и по Y для выполнения этого действия")
+        error.setIcon(QMessageBox.Warning)
+        error.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+        error.setDefaultButton(QMessageBox.Ok)
+        error.setInformativeText("")
+        error.setDetailedText("""Детали
+        Чтобы выполнить это действие введите точки по X и по Y
+        
+        Нажмите Ok, чтобы закрыть всплывающее окно
+        
+        Нажмите Cancel, чтобы выйти из приложения
+        """)
+        error.buttonClicked.connect(self.popup_action_error)
+        error.exec_()
+
+    # функционал кнопок всплывающего окна
+    def popup_action_error(self, btn):
+        if btn.text() == "Ok":
+            print("OK")
+        elif btn.text() == "Cancel":
+            sys.exit(app.exec_())
 
     # добавление строчки
     def change(self):
@@ -58,7 +106,6 @@ class MainWindow(QMainWindow):
                     continue
                 self.maxRow = row
         self.maxRow += 1
-        print('maxRow:', self.maxRow)  # КОЛИЧЕСТВО СТРОЧЕК
 
     # выбор файла и запись его пути в тест браузер
     def choice_file(self):
@@ -70,7 +117,6 @@ class MainWindow(QMainWindow):
         self.load_data()
         self.dataExtent()
         self.maxRow_in_spin()
-        self.get_Value_table()
 
     # запись количества строчек в спин
     def maxRow_in_spin(self):
@@ -102,11 +148,32 @@ class MainWindow(QMainWindow):
         self.tableWidget.clear()
         self.spin.setValue(0)
 
+    # очистка графика
+    def clear_graph(self):
+        plt.clf()
+        self.canvas.draw()
+
     # график
     def show_graphic(self):
+        self.clear_graph()
         self.get_Value_table()
-        plt.plot(self.value_table_X, self.value_table_Y)
-        self.canvas.draw()
+        if not self.value_table_X or not self.value_table_Y:
+            ...
+        else:
+            plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
+            plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
+            plt.ylim([min(self.value_table_Y) - 2, max(self.value_table_Y) + 2])
+
+            # ++++++++++++++++++++++++++++++++++++++++++++
+
+            # plt.plot(self.value_table_X, self.value_table_Y)
+
+
+            # ++++++++++++++++++++++++++++++++++++++++++++
+            self.canvas.draw()
+
+
+
 
 # запуск
 if __name__ == '__main__':
