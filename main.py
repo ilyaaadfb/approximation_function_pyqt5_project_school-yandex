@@ -7,6 +7,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.optimize import curve_fit
 
 
 class MainWindow(QMainWindow):
@@ -37,7 +38,6 @@ class MainWindow(QMainWindow):
         self.spin.valueChanged.connect(self.change)
         self.button_group.buttonClicked.connect(self.on_radio_button_clicked)
 
-
     # *****************************************************************************
     # проверка на то какой чек бокс нажат возвращает True в случае линейной и False в случае нелинейной
     def on_radio_button_clicked(self):
@@ -62,6 +62,7 @@ class MainWindow(QMainWindow):
             else:
                 self.textBrowser.append(f'X: {", ".join(list(map(str, self.value_table_X)))}')
                 self.textBrowser.append(f'Y: {", ".join(list(map(str, self.value_table_Y)))}')
+                self.textBrowser.append(' ' * 50)
         else:
             self.popup_action()
 
@@ -79,7 +80,7 @@ class MainWindow(QMainWindow):
         
         Нажмите Ok, чтобы закрыть всплывающее окно
         
-        Нажмите Cancel, чтобы выйти из приложения
+        Нажмите Cancel, чтобы выйти из программы
         """)
         error.buttonClicked.connect(self.popup_action_error)
         error.exec_()
@@ -112,7 +113,7 @@ class MainWindow(QMainWindow):
         filename, filetype = QFileDialog.getOpenFileName(self, "Выбрать файл", ".", "XLSX Files(*.xlsx)")
         self.textBrowser.append("Путь к файлу:")
         self.textBrowser.append(filename)
-        self.textBrowser.append('*' * 50)
+        self.textBrowser.append(' ' * 50)
         self.filename_for_chice = filename
         self.load_data()
         self.dataExtent()
@@ -153,39 +154,138 @@ class MainWindow(QMainWindow):
         plt.clf()
         self.canvas.draw()
 
-    # график
+    # линейная аппроксимация
+    def linear_approx(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+        k = np.polyfit(x, y, 1)[0]
+        b = np.polyfit(x, y, 1)[1]
+        self.textBrowser.append(f'Коэффицент k: {k}')
+        self.textBrowser.append(f'Коэффицент b: {b}')
+        self.textBrowser.append(' ' * 50)
+        d = []
+        for i in self.value_table_X:
+            y = k * i + b
+            d.append(y)
+        plt.plot(self.value_table_X, d, color='blue')
+
+    # метод, которая показывает точки на графике и задаёт диапазон по x и по y
+    def points(self):
+        plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
+        plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
+        plt.ylim([min(self.value_table_Y) - 2, max(self.value_table_Y) + 2])
+        plt.xlabel('x')
+        plt.ylabel('y')
+
+    # методы выполняющие не линейную аппроксимацию в зависимости от выбранной функции
+    def quadratic_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b, c):
+            return a * x ** 2 + b * x + c
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='green')
+
+    def qubic_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b, c, d):
+            return a * x ** 3 + b * x ** 2 + c * x + d
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='violet')
+
+    def power_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, k, n):
+            return k * x ** n
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='brown')
+
+    def exponential_type_1_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b):
+            return a * np.exp(b ** x)
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='black')
+
+    def exponential_type_2_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b):
+            return a * b ** x
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='orange')
+
+    def logarithmic_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b):
+            return b + a * np.log(x)
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color="grey")
+
+    def hyperbolic_func(self):
+        x = np.array(self.value_table_X)
+        y = np.array(self.value_table_Y)
+
+        def func(x, a, b):
+            return b + a / x
+
+        popt, _ = curve_fit(func, x, y)
+        x = np.linspace(x.min(), x.max(), 100)
+        plt.plot(x, func(x, *popt), color='purple')
+
+    # реализация графика
     def show_graphic(self):
         self.clear_graph()
         self.get_Value_table()
         if not self.value_table_X or not self.value_table_Y:
             ...
         else:
-            plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
-            plt.xlim([0, max(self.value_table_X) + 2])
-            plt.ylim([0, max(self.value_table_Y) + 2])
+            self.points()
             # линейная аппроксимация
             if self.on_radio_button_clicked():
-                plt.plot(self.value_table_X, self.value_table_Y)
-                x = np.array(self.value_table_X)
-                y = np.array(self.value_table_Y)
-                k = np.polyfit(x, y, 1)[0]
-                b = np.polyfit(x, y, 1)[1]
-                self.textBrowser.append(f'Коэффицент k: {k}')
-                self.textBrowser.append(f'Коэффицент b: {b}')
-                d = []
-                for i in self.value_table_X:
-                    y = k * i + b
-                    d.append(y)
-                plt.plot(self.value_table_X, d)
+                self.linear_approx()
             # нелинейная аппроксимация
             else:
-                print("нелинейная")
-
-
-            # ++++++++++++++++++++++++++++++++++++++++++++
+                if self.nonlinear_radioButton.isChecked():
+                    if self.comboBox.currentText() == "Квадратичная: 'y = a*x^2+b*x+c'":
+                        self.quadratic_func()
+                    elif self.comboBox.currentText() == "Кубическая: 'y = a*x^3 + b*x^2 + c*x + d'":
+                        self.qubic_func()
+                    elif self.comboBox.currentText() == "Степенная:  'y = k*x^n'":
+                        self.power_func()
+                    elif self.comboBox.currentText() == "Экспоненциальная I типа: 'y = a*exp(b^x)'":
+                        self.exponential_type_1_func()
+                    elif self.comboBox.currentText() == "Экспоненциальная II типа: 'y = a*b^x'":
+                        self.exponential_type_2_func()
+                    elif self.comboBox.currentText() == "Логарифмическая: 'y = b + a*log(x)'":
+                        self.logarithmic_func()
+                    elif self.comboBox.currentText() == "Гиперболическая:  'y = b+a/x'":
+                        self.hyperbolic_func()
+                else:
+                    ...
             self.canvas.draw()
-
-
 
 
 # запуск
