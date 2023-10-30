@@ -30,7 +30,7 @@
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -67,7 +67,7 @@
        <item>
         <widget class="QPushButton" name="clear_button_table">
          <property name="text">
-          <string>Clear table</string>
+          <string>Очистить таблицу</string>
          </property>
         </widget>
        </item>
@@ -93,7 +93,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Clear</string>
+       <string>Очисть браузер</string>
       </property>
      </widget>
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -123,7 +123,7 @@
      <widget class="QComboBox" name="comboBox">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>270</x>
         <y>320</y>
         <width>241</width>
         <height>22</height>
@@ -170,11 +170,11 @@
        </property>
       </item>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>300</y>
+        <y>310</y>
         <width>86</width>
         <height>42</height>
        </rect>
@@ -195,6 +195,19 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>290</y>
+        <width>181</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Выберите вид аппроксимации:</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
