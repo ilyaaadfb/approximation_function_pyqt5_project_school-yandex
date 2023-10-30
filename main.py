@@ -161,12 +161,25 @@ class MainWindow(QMainWindow):
             ...
         else:
             plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
-            plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
-            plt.ylim([min(self.value_table_Y) - 2, max(self.value_table_Y) + 2])
-
-            # ++++++++++++++++++++++++++++++++++++++++++++
-
-            # plt.plot(self.value_table_X, self.value_table_Y)
+            plt.xlim([0, max(self.value_table_X) + 2])
+            plt.ylim([0, max(self.value_table_Y) + 2])
+            # линейная аппроксимация
+            if self.on_radio_button_clicked():
+                plt.plot(self.value_table_X, self.value_table_Y)
+                x = np.array(self.value_table_X)
+                y = np.array(self.value_table_Y)
+                k = np.polyfit(x, y, 1)[0]
+                b = np.polyfit(x, y, 1)[1]
+                self.textBrowser.append(f'Коэффицент k: {k}')
+                self.textBrowser.append(f'Коэффицент b: {b}')
+                d = []
+                for i in self.value_table_X:
+                    y = k * i + b
+                    d.append(y)
+                plt.plot(self.value_table_X, d)
+            # нелинейная аппроксимация
+            else:
+                print("нелинейная")
 
 
             # ++++++++++++++++++++++++++++++++++++++++++++
