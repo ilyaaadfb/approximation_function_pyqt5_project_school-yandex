@@ -6,12 +6,14 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 import openpyxl
 import pandas as pd
 import sqlite3
+from PyQt5 import QtCore
 
 
 class MainWindow(QMainWindow):
@@ -38,6 +40,8 @@ class MainWindow(QMainWindow):
         self.del_button.clicked.connect(self.delete_elem)
         self.modified = {}
         self.titles = None
+        self.tabWidget.setTabText(0, "MAIN")
+        self.tabWidget.setTabText(1, "БД")
         self.db()
         self.NameProgramm()
         self.contact()
@@ -62,13 +66,19 @@ class MainWindow(QMainWindow):
     def delete_elem(self):
         rows = list(set([i.row() for i in self.table_for_db.selectedItems()]))
         ids = [self.table_for_db.item(i, 0).text() for i in rows]
-        valid = QMessageBox.question(
-            self, '', "Действительно удалить элемент" + ",".join(ids),
-            QMessageBox.Yes, QMessageBox.No)
-        if valid == QMessageBox.Yes:
-            cur = self.con.cursor()
-            cur.execute('DELETE FROM inf_ab_approx WHERE id = ?', (self.id_spin.value(),))
-            self.con.commit()
+        if self.id_spin.value() == 0:
+            ...
+        else:
+            valid = QMessageBox.question(
+                self, '', "Действительно удалить элемент" + ",".join(ids),
+                QMessageBox.Yes, QMessageBox.No)
+        try:
+            if valid == QMessageBox.Yes:
+                cur = self.con.cursor()
+                cur.execute('DELETE FROM inf_ab_approx WHERE id = ?', (self.id_spin.value(),))
+                self.con.commit()
+        except:
+            ...
         self.db()
 
     # сохранение результата изменения в базу данных
