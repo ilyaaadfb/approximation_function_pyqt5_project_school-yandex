@@ -3,12 +3,15 @@ from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTableWidgetItem, QMainWindow, QFileDialog, QButtonGroup
 from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 import openpyxl
+import pandas as pd
+import sqlite3
 
 
 class MainWindow(QMainWindow):
@@ -28,9 +31,97 @@ class MainWindow(QMainWindow):
         self.button_group = QButtonGroup()
         self.button_group.addButton(self.linear_radioButton)
         self.button_group.addButton(self.nonlinear_radioButton)
+        self.con = sqlite3.connect("db.sqlite")
+        self.change_button.clicked.connect(self.update_result)
+        self.table_for_db.itemChanged.connect(self.item_changed)
+        self.save_button.clicked.connect(self.save_results)
+        self.del_button.clicked.connect(self.delete_elem)
+        self.modified = {}
+        self.titles = None
+        self.db()
         self.NameProgramm()
         self.contact()
 
+    # добавление значения в базу данных
+    def adding_value_in_db(self):
+        connection = sqlite3.connect('db.sqlite')
+        cursor = connection.cursor()
+        value_func = self.comboBox.currentText()
+        count_points = self.spin.value()
+        if self.linear_radioButton.isChecked():
+            cursor.execute('''INSERT INTO inf_ab_approx(count_points, function) VALUES (?, ?)''',
+                           (count_points, "Линейная: 'y = kx + b'"))
+        else:
+            cursor.execute('''INSERT INTO inf_ab_approx(count_points, function) VALUES (?, ?)''',
+                           (count_points, value_func))
+        connection.commit()
+        connection.close()
+        self.db()
+
+    # удаление элемента из базы данных
+    def delete_elem(self):
+        rows = list(set([i.row() for i in self.table_for_db.selectedItems()]))
+        ids = [self.table_for_db.item(i, 0).text() for i in rows]
+        valid = QMessageBox.question(
+            self, '', "Действительно удалить элемент" + ",".join(ids),
+            QMessageBox.Yes, QMessageBox.No)
+        if valid == QMessageBox.Yes:
+            cur = self.con.cursor()
+            cur.execute('DELETE FROM inf_ab_approx WHERE id = ?', (self.id_spin.value(),))
+            self.con.commit()
+        self.db()
+
+    # сохранение результата изменения в базу данных
+    def save_results(self):
+        if self.modified:
+            cur = self.con.cursor()
+            que = "UPDATE inf_ab_approx SET\n"
+            que += ", ".join([f"{key}='{self.modified.get(key)}'"
+                              for key in self.modified.keys()])
+            que += "WHERE id = ?"
+            print(que)
+            cur.execute(que, (self.id_spin.text(),))
+            self.con.commit()
+            self.modified.clear()
+            self.db()
+
+    # отслеживание изменений
+    def item_changed(self, item):
+        self.modified[self.titles[item.column()]] = item.text()
+
+    # загрузка результата в базу данных
+    def update_result(self):
+        cur = self.con.cursor()
+        result = cur.execute("SELECT * FROM inf_ab_approx WHERE id=?",
+                             (item_id := self.id_spin.text(),)).fetchall()
+        self.table_for_db.setRowCount(len(result))
+        print(len(result))
+        if not result:
+            self.statusBar().showMessage('Ничего не нашлось')
+            return
+        else:
+            self.statusBar().showMessage(f"Нашлась запись с id = {item_id}")
+        self.table_for_db.setColumnCount(len(result[0]))
+        self.titles = [description[0] for description in cur.description]
+        for i, elem in enumerate(result):
+            for j, val in enumerate(elem):
+                self.table_for_db.setItem(i, j, QTableWidgetItem(str(val)))
+        self.modified = {}
+
+    # база данных
+    def db(self):
+        db = QSqlDatabase.addDatabase('QSQLITE')
+        db.setDatabaseName('db.sqlite')
+        db.open()
+        model = QSqlTableModel(self, db)
+        model.setTable('inf_ab_approx')
+        model.select()
+        self.view.setModel(model)
+        self.view.move(0, 0)
+        self.view.resize(900, 300)
+        pd.options.display.max_colwidth = 255
+
+    # название и аватарка программы
     def NameProgramm(self):
         self.setWindowTitle('Function approximation')
         self.setWindowIcon(QIcon('graph_ava.png'))
@@ -116,14 +207,17 @@ class MainWindow(QMainWindow):
 
     # выбор файла и запись его пути в тест браузер
     def choice_file(self):
-        filename, filetype = QFileDialog.getOpenFileName(self, "Выбрать файл", ".", "XLSX Files(*.xlsx)")
-        self.textBrowser.append("Путь к файлу:")
-        self.textBrowser.append(filename)
-        self.textBrowser.append(' ' * 50)
-        self.filename_for_chice = filename
-        self.load_data()
-        self.dataExtent()
-        self.maxRow_in_spin()
+        try:
+            filename, filetype = QFileDialog.getOpenFileName(self, "Выбрать файл", ".", "XLSX Files(*.xlsx)")
+            self.textBrowser.append("Путь к файлу:")
+            self.textBrowser.append(filename)
+            self.textBrowser.append(' ' * 50)
+            self.filename_for_chice = filename
+            self.load_data()
+            self.dataExtent()
+            self.maxRow_in_spin()
+        except:
+            ...
 
     # запись количества строчек в спин
     def maxRow_in_spin(self):
@@ -160,6 +254,14 @@ class MainWindow(QMainWindow):
         plt.clf()
         self.canvas.draw()
 
+    # метод, которая показывает точки на графике и задаёт диапазон по x и по y
+    def points(self):
+        plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
+        plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
+        plt.ylim([min(self.value_table_Y) - 2, max(self.value_table_Y) + 2])
+        plt.xlabel('x')
+        plt.ylabel('y')
+
     # линейная аппроксимация
     def linear_approx(self):
         x = np.array(self.value_table_X)
@@ -174,14 +276,6 @@ class MainWindow(QMainWindow):
             y = k * i + b
             d.append(y)
         plt.plot(self.value_table_X, d, color='blue')
-
-    # метод, которая показывает точки на графике и задаёт диапазон по x и по y
-    def points(self):
-        plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
-        plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
-        plt.ylim([min(self.value_table_Y) - 2, max(self.value_table_Y) + 2])
-        plt.xlabel('x')
-        plt.ylabel('y')
 
     # методы выполняющие не линейную аппроксимацию в зависимости от выбранной функции
     def quadratic_func(self):
@@ -268,6 +362,7 @@ class MainWindow(QMainWindow):
         if not self.value_table_X or not self.value_table_Y:
             ...
         else:
+            self.adding_value_in_db()
             self.points()
             # линейная аппроксимация
             if self.on_radio_button_clicked():
