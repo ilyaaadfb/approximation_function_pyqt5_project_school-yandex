@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>789</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(207, 207, 207);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -22,12 +22,13 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>800</width>
-      <height>600</height>
+      <width>951</width>
+      <height>701</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(207, 207, 207);</string>
+     <string notr="true">background-color: rgb(207, 207, 207);
+border-color: rgb(207, 207, 207);</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -41,12 +42,17 @@
        <rect>
         <x>200</x>
         <y>10</y>
-        <width>585</width>
+        <width>581</width>
         <height>211</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="tableWidget">
@@ -60,7 +66,11 @@
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <column>
        <property name="text">
@@ -84,7 +94,11 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="button_file">
@@ -92,13 +106,17 @@ border-radius: 10px;</string>
        <rect>
         <x>10</x>
         <y>255</y>
-        <width>140</width>
+        <width>141</width>
         <height>23</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Выбор файла</string>
@@ -115,7 +133,11 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Очистить таблицу</string>
@@ -125,9 +147,9 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>260</y>
-        <width>571</width>
-        <height>301</height>
+        <y>270</y>
+        <width>561</width>
+        <height>291</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -142,7 +164,7 @@ border-radius: 10px;</string>
         <x>10</x>
         <y>340</y>
         <width>141</width>
-        <height>51</height>
+        <height>61</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -150,7 +172,11 @@ border-radius: 10px;</string>
         <widget class="QRadioButton" name="linear_radioButton">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
          </property>
          <property name="text">
           <string>Линейная</string>
@@ -161,7 +187,11 @@ border-radius: 10px;</string>
         <widget class="QRadioButton" name="nonlinear_radioButton">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
          </property>
          <property name="text">
           <string>Нелинейная</string>
@@ -174,13 +204,15 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>320</y>
-        <width>161</width>
-        <height>16</height>
+        <y>321</y>
+        <width>181</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-radius: 10px;</string>
+       <string notr="true">border-radius: 10px;
+font-size: 12px;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
       </property>
       <property name="text">
        <string>Выберите вид аппроксимации:</string>
@@ -190,14 +222,18 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>224</y>
+        <y>234</y>
         <width>440</width>
-        <height>31</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Очисть браузер</string>
@@ -207,14 +243,18 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>400</y>
+        <y>410</y>
         <width>201</width>
         <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <item>
        <property name="text">
@@ -256,14 +296,16 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>450</y>
+        <y>460</y>
         <width>121</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-border-radius: 10px;</string>
+       <string notr="true">font-size: 15px;
+border-radius: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
       </property>
       <property name="text">
        <string>Сравнить</string>
@@ -273,14 +315,18 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>490</y>
+        <y>500</y>
         <width>200</width>
-        <height>60</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 25px;
+color: #D2691E;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>RUN</string>
@@ -302,7 +348,10 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="table_for_db">
@@ -316,7 +365,10 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="del_button">
@@ -330,7 +382,11 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Удалить</string>
@@ -347,7 +403,11 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Сохранить</string>
@@ -364,7 +424,11 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
       <property name="text">
        <string>Загрузить</string>
@@ -381,21 +445,15 @@ border-radius: 10px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+font-size: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
       </property>
      </widget>
     </widget>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources/>
