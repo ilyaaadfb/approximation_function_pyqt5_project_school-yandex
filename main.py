@@ -143,7 +143,6 @@ class MainWindow(QMainWindow):
         self.spin.valueChanged.connect(self.change)
         self.button_group.buttonClicked.connect(self.on_radio_button_clicked)
 
-    # *****************************************************************************
     # проверка на то какой чек бокс нажат возвращает True в случае линейной и False в случае нелинейной
     def on_radio_button_clicked(self):
         if self.linear_radioButton.isChecked():
