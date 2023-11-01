@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>592</width>
-    <height>897</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -19,9 +22,12 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>591</width>
-      <height>861</height>
+      <width>800</width>
+      <height>600</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(207, 207, 207);</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -30,104 +36,185 @@
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>141</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QTableWidget" name="tableWidget">
-         <column>
-          <property name="text">
-           <string>X</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Y</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="spin"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="button_file">
-         <property name="text">
-          <string>Выбор файла</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="clear_button_table">
-         <property name="text">
-          <string>Очистить таблицу</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QTextBrowser" name="textBrowser">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>0</y>
-        <width>441</width>
-        <height>251</height>
+        <x>200</x>
+        <y>10</y>
+        <width>585</width>
+        <height>211</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="clear_button_browser">
+     <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>250</y>
-        <width>441</width>
-        <height>31</height>
+        <x>10</x>
+        <y>10</y>
+        <width>140</width>
+        <height>200</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <column>
+       <property name="text">
+        <string>X</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Y</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QSpinBox" name="spin">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>220</y>
+        <width>140</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_file">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>255</y>
+        <width>140</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
       <property name="text">
-       <string>Очисть браузер</string>
+       <string>Выбор файла</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="clear_button_table">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>290</y>
+        <width>140</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Очистить таблицу</string>
       </property>
      </widget>
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>360</y>
-        <width>581</width>
-        <height>441</height>
+        <x>220</x>
+        <y>260</y>
+        <width>571</width>
+        <height>301</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+      </layout>
      </widget>
-     <widget class="QPushButton" name="run_button">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>810</y>
-        <width>581</width>
-        <height>20</height>
+        <x>10</x>
+        <y>340</y>
+        <width>141</width>
+        <height>51</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QRadioButton" name="linear_radioButton">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+         </property>
+         <property name="text">
+          <string>Линейная</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="nonlinear_radioButton">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+         </property>
+         <property name="text">
+          <string>Нелинейная</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>320</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 10px;</string>
+      </property>
       <property name="text">
-       <string>RUN</string>
+       <string>Выберите вид аппроксимации:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="clear_button_browser">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>224</y>
+        <width>440</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Очисть браузер</string>
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox">
       <property name="geometry">
        <rect>
-        <x>270</x>
-        <y>320</y>
-        <width>241</width>
-        <height>22</height>
+        <x>10</x>
+        <y>400</y>
+        <width>201</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
       </property>
       <item>
        <property name="text">
@@ -165,43 +252,38 @@
        </property>
       </item>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QCheckBox" name="compare_checkBox">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>310</y>
-        <width>86</width>
-        <height>42</height>
+        <x>30</x>
+        <y>450</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QRadioButton" name="linear_radioButton">
-         <property name="text">
-          <string>Линейная</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="nonlinear_radioButton">
-         <property name="text">
-          <string>Нелинейная</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>290</y>
-        <width>181</width>
-        <height>16</height>
-       </rect>
+      <property name="styleSheet">
+       <string notr="true">
+border-radius: 10px;</string>
       </property>
       <property name="text">
-       <string>Выберите вид аппроксимации:</string>
+       <string>Сравнить</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="run_button">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>200</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>RUN</string>
       </property>
      </widget>
     </widget>
@@ -212,51 +294,95 @@
      <widget class="QTableView" name="view">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>561</width>
-        <height>381</height>
+        <x>10</x>
+        <y>10</y>
+        <width>381</width>
+        <height>551</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
       </property>
      </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_2">
+     <widget class="QTableWidget" name="table_for_db">
       <property name="geometry">
        <rect>
-        <x>29</x>
-        <y>420</y>
-        <width>521</width>
-        <height>401</height>
+        <x>400</x>
+        <y>270</y>
+        <width>380</width>
+        <height>291</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QSpinBox" name="id_spin"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="del_button">
-         <property name="text">
-          <string>Удалить</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="change_button">
-         <property name="text">
-          <string>Загрузить</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="save_button">
-         <property name="text">
-          <string>Сохранить</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="table_for_db"/>
-       </item>
-      </layout>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="del_button">
+      <property name="geometry">
+       <rect>
+        <x>445</x>
+        <y>80</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Удалить</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_button">
+      <property name="geometry">
+       <rect>
+        <x>445</x>
+        <y>140</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Сохранить</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="change_button">
+      <property name="geometry">
+       <rect>
+        <x>445</x>
+        <y>200</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Загрузить</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="id_spin">
+      <property name="geometry">
+       <rect>
+        <x>445</x>
+        <y>20</y>
+        <width>300</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -266,7 +392,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>592</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
