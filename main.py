@@ -117,8 +117,6 @@ class MainWindow(QMainWindow):
         model.setTable('inf_ab_approx')
         model.select()
         self.view.setModel(model)
-        self.view.move(0, 0)
-        self.view.resize(900, 300)
         pd.options.display.max_colwidth = 255
 
     # название и аватарка программы
@@ -275,7 +273,8 @@ class MainWindow(QMainWindow):
         for i in self.value_table_X:
             y = k * i + b
             d.append(y)
-        plt.plot(self.value_table_X, d, color='blue')
+        plt.plot(self.value_table_X, d, color='blue', label="Линейная: 'y = kx + b'")
+        plt.legend(loc='best')
 
     # методы выполняющие не линейную аппроксимацию в зависимости от выбранной функции
     def quadratic_func(self):
@@ -287,7 +286,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='green')
+        plt.plot(x, func(x, *popt), color='green', label="Квадратичная: 'y = a*x^2+b*x+c'")
+        plt.legend(loc='best')
 
     def qubic_func(self):
         x = np.array(self.value_table_X)
@@ -298,7 +298,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='violet')
+        plt.plot(x, func(x, *popt), color='violet', label="Кубическая: 'y = a*x^3 + b*x^2 + c*x + d'")
+        plt.legend(loc='best')
 
     def power_func(self):
         x = np.array(self.value_table_X)
@@ -309,7 +310,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='brown')
+        plt.plot(x, func(x, *popt), color='brown', label="Степенная:  'y = k*x^n'")
+        plt.legend(loc='best')
 
     def exponential_type_1_func(self):
         x = np.array(self.value_table_X)
@@ -320,7 +322,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='black')
+        plt.plot(x, func(x, *popt), color='black', label="Экспоненциальная I типа: 'y = a*exp(b^x)'")
+        plt.legend(loc='best')
 
     def exponential_type_2_func(self):
         x = np.array(self.value_table_X)
@@ -331,7 +334,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='orange')
+        plt.plot(x, func(x, *popt), color='orange', label="Экспоненциальная II типа: 'y = a*b^x'")
+        plt.legend(loc='best')
 
     def logarithmic_func(self):
         x = np.array(self.value_table_X)
@@ -342,7 +346,8 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color="grey")
+        plt.plot(x, func(x, *popt), color="grey", label="Логарифмическая: 'y = b + a*log(x)'")
+        plt.legend(loc='best')
 
     def hyperbolic_func(self):
         x = np.array(self.value_table_X)
@@ -353,11 +358,15 @@ class MainWindow(QMainWindow):
 
         popt, _ = curve_fit(func, x, y)
         x = np.linspace(x.min(), x.max(), 100)
-        plt.plot(x, func(x, *popt), color='purple')
+        plt.plot(x, func(x, *popt), color='purple', label="Гиперболическая:  'y = b+a/x'")
+        plt.legend(loc='best')
 
     # реализация графика
     def show_graphic(self):
-        self.clear_graph()
+        if self.compare_checkBox.isChecked():
+            ...
+        else:
+            self.clear_graph()
         self.get_Value_table()
         if not self.value_table_X or not self.value_table_Y:
             ...
