@@ -1,0 +1,1 @@
+# approximation_function_pyqt5_project_school-yandex
