@@ -6,21 +6,22 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 import openpyxl
 import pandas as pd
 import sqlite3
-from PyQt5 import QtCore
+from main_interface import Ui_Function_approximation
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_Function_approximation):
     # интерфейс
     def __init__(self):
         super(MainWindow, self).__init__()
-        loadUi("main_interface.ui", self)
+
+        self.setupUi(self)
+
         self.figure = plt.figure()
         self.canvas = FigureCanvas(plt.figure())
         self.toolbar = NavigationToolbar(self.canvas, self)
@@ -70,7 +71,7 @@ class MainWindow(QMainWindow):
             ...
         else:
             valid = QMessageBox.question(
-                self, '', "Действительно удалить элемент" + ",".join(ids),
+                self, '', "Вы действительно хотите удалить элемент",
                 QMessageBox.Yes, QMessageBox.No)
         try:
             if valid == QMessageBox.Yes:

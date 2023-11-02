@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>592</height>
+    <width>788</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(207, 207, 207);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -111,12 +111,17 @@ border:0.5px solid black;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 15px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Выбор файла</string>
@@ -132,12 +137,17 @@ border:0.5px solid black;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 15px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Очистить таблицу</string>
@@ -228,12 +238,17 @@ font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 15px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Очисть браузер</string>
@@ -321,12 +336,18 @@ font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 25px;
-color: #D2691E;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 25px;
+	color: #D2691E;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton::hover{
+	background-color : lightgreen;
+}
+</string>
       </property>
       <property name="text">
        <string>RUN</string>
@@ -381,12 +402,17 @@ border:0.5px solid black;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 20px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Удалить</string>
@@ -402,12 +428,17 @@ border:0.5px solid black;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 20px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Сохранить</string>
@@ -423,12 +454,17 @@ border:0.5px solid black;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 10px;
-font-size: 20px;
-color: #0d7907;
-font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
-border:0.5px solid black;</string>
+       <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
       </property>
       <property name="text">
        <string>Загрузить</string>
