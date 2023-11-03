@@ -286,7 +286,7 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         plt.plot(self.value_table_X, d, color='blue', label="Линейная: 'y = kx + b'")
         plt.legend(loc='best')
 
-    # методы выполняющие не линейную аппроксимацию в зависимости от выбранной функции
+    # методы выполняющие нелинейную аппроксимацию в зависимости от выбранной функции
     def quadratic_func(self):
         x = np.array(self.value_table_X)
         y = np.array(self.value_table_Y)
