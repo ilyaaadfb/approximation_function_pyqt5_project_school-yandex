@@ -21,8 +21,8 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
     # интерфейс
     def __init__(self):
         super(MainWindow, self).__init__()
-        # loadUi("main_interface2.ui", self)
-        self.setupUi(self)
+        loadUi("main_interface.ui", self)  # .ui file
+        # self.setupUi(self)               # .py file
         self.figure = plt.figure()
         self.canvas = FigureCanvas(plt.figure())
         self.toolbar = NavigationToolbar(self.canvas, self)
