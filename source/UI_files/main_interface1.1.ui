@@ -229,7 +229,7 @@ QPushButton::hover{
 </string>
               </property>
               <property name="text">
-               <string>RUN</string>
+               <string>ПУСК</string>
               </property>
              </widget>
             </item>
