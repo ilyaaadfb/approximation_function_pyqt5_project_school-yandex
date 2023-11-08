@@ -1,7 +1,8 @@
 import sys
 from PyQt5.uic import loadUi
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QTableWidgetItem, QMainWindow, QFileDialog, QButtonGroup
+from PyQt5.QtWidgets import QTableWidgetItem, QMainWindow, QFileDialog, QButtonGroup, QDialog
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -12,24 +13,24 @@ from scipy.optimize import curve_fit
 import openpyxl
 import pandas as pd
 import sqlite3
+from PyQt5 import QtCore, QtGui, QtWidgets
 from main_interface import Ui_Function_approximation
+
+
 
 
 class MainWindow(QMainWindow, Ui_Function_approximation):
     # интерфейс
     def __init__(self):
         super(MainWindow, self).__init__()
-
+        # loadUi("main_interface2.ui", self)
         self.setupUi(self)
-
         self.figure = plt.figure()
         self.canvas = FigureCanvas(plt.figure())
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.verticalLayout.addWidget(self.toolbar)
         self.verticalLayout.addWidget(self.canvas)
         self.setLayout(self.verticalLayout)
-        self.tableWidget.setColumnWidth(0, 40)
-        self.tableWidget.setColumnWidth(1, 40)
         self.spin.setMaximum(10000)
         self.button_group = QButtonGroup()
         self.button_group.addButton(self.linear_radioButton)
@@ -39,6 +40,10 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         self.table_for_db.itemChanged.connect(self.item_changed)
         self.save_button.clicked.connect(self.save_results)
         self.del_button.clicked.connect(self.delete_elem)
+        self.action_exit.triggered.connect(self.exit_action)
+        self.action_reference.triggered.connect(self.dialog_reference)
+        self.action_rus.triggered.connect(self.leng_ru)
+        self.action_en.triggered.connect(self.leng_en)
         self.modified = {}
         self.titles = None
         self.tabWidget.setTabText(0, "MAIN")
@@ -46,6 +51,77 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         self.db()
         self.NameProgramm()
         self.contact()
+
+    # выход из программы
+    def exit_action(self):
+        sys.exit(app.exec_())
+
+    # диалоговое окно о программе
+    def dialog_reference(self):
+        self.dlg = QMessageBox(self)
+        self.dlg.setWindowTitle("O программе")
+        self.setWindowIcon(QIcon('graph_ava.png'))
+        self.dlg.setText("     This is a program for creating linear and nonlinear approximations of functions. "
+                         "This program was developed in Python using a set of PyQt5 libraries to create a graphical "
+                         "interface. Linear approximation is performed using the 'pyplot' module in the 'matplotlib' "
+                         "library. Nonlinear approximation is performed using the 'curve_fit' method in the 'Scipy' "
+                         "library. The program also uses a 'SQLite3' database.")
+        button = self.dlg.exec()
+
+        if button == QMessageBox.Ok:
+            print("OK!")
+
+    # русский язык
+    def leng_ru(self):
+        self.button_file.setText("Выбор файла")
+        self.clear_button_table.setText("Очистить таблицу")
+        self.linear_radioButton.setText("Линейная")
+        self.nonlinear_radioButton.setText("Нелинейная")
+        self.compare_checkBox.setText("Сравнить")
+        self.run_button.setText("ПУСК")
+        self.clear_button_browser.setText("Очисть браузер")
+        self.del_button.setText("Удалить")
+        self.save_button.setText("Сохранить")
+        self.change_button.setText("Загрузить")
+        self.comboBox.setItemText(0, "Квадратичная: 'y = a*x^2+b*x+c'")
+        self.comboBox.setItemText(1, "Кубическая: 'y = a*x^3 + b*x^2 + c*x + d'")
+        self.comboBox.setItemText(2, "Степенная:  'y = k*x^n'")
+        self.comboBox.setItemText(3, "Экспоненциальная I типа: 'y = a*exp(b^x)'")
+        self.comboBox.setItemText(4, "Экспоненциальная II типа: 'y = a*b^x'")
+        self.comboBox.setItemText(5, "Логарифмическая: 'y = b + a*log(x)'")
+        self.comboBox.setItemText(6, "Гиперболическая:  'y = b+a/x'")
+
+    # английский язык
+    def leng_en(self):
+        self.button_file.setText("File selection")
+        self.clear_button_table.setText("Clear table")
+        self.linear_radioButton.setText("Linear")
+        self.nonlinear_radioButton.setText("Nonlinear")
+        self.compare_checkBox.setText("Compare")
+        self.run_button.setText("RUN")
+        self.clear_button_browser.setText("Clear")
+        self.del_button.setText("Clear")
+        self.save_button.setText("Save")
+        self.change_button.setText("Download")
+        self.comboBox.setItemText(0, "Quadratic_func: 'y = a*x^2+b*x+c'")
+        self.comboBox.setItemText(1, "Qubic_func: 'y = a*x^3 + b*x^2 + c*x + d'")
+        self.comboBox.setItemText(2, "Power_func:  'y = k*x^n'")
+        self.comboBox.setItemText(3, "Exponential_type_1_func: 'y = a*exp(b^x)'")
+        self.comboBox.setItemText(4, "Exponential_type_2_func: 'y = a*b^x'")
+        self.comboBox.setItemText(5, "Logarithmic_func: 'y = b + a*log(x)'")
+        self.comboBox.setItemText(6, "Hyperbolic_func:  'y = b+a/x'")
+
+        # горячие клавиши
+
+    # горячие клавиши
+    def keyPressEvent(self, event):
+        #
+        if int(event.modifiers()) == (Qt.ControlModifier + Qt.AltModifier):
+            if event.key() == Qt.Key_Q:
+                self.exit_action()
+
+        if event.key() == Qt.Key_F1:
+            self.dialog_reference()
 
     # добавление значения в базу данных
     def adding_value_in_db(self):
@@ -65,8 +141,6 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
 
     # удаление элемента из базы данных
     def delete_elem(self):
-        rows = list(set([i.row() for i in self.table_for_db.selectedItems()]))
-        ids = [self.table_for_db.item(i, 0).text() for i in rows]
         if self.id_spin.value() == 0:
             ...
         else:
@@ -104,15 +178,17 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
     def update_result(self):
         cur = self.con.cursor()
         result = cur.execute("SELECT * FROM inf_ab_approx WHERE id=?",
-                             (item_id := self.id_spin.text(),)).fetchall()
-        self.table_for_db.setRowCount(len(result))
-        print(len(result))
+                             (self.id_spin.text(),)).fetchall()
+        self.table_for_db.setRowCount(1)
         if not result:
             self.statusBar().showMessage('Ничего не нашлось')
             return
         else:
-            self.statusBar().showMessage(f"Нашлась запись с id = {item_id}")
+            self.statusBar().showMessage(f"Нашлась запись")
         self.table_for_db.setColumnCount(len(result[0]))
+        self.table_for_db.setColumnWidth(0, 40)
+        self.table_for_db.setColumnWidth(1, 40)
+        self.table_for_db.setColumnWidth(2, 300)
         self.titles = [description[0] for description in cur.description]
         for i, elem in enumerate(result):
             for j, val in enumerate(elem):
@@ -128,6 +204,9 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         model.setTable('inf_ab_approx')
         model.select()
         self.view.setModel(model)
+        self.view.setColumnWidth(0, 40)
+        self.view.setColumnWidth(1, 40)
+        self.view.setColumnWidth(2, 300)
         pd.options.display.max_colwidth = 255
 
     # название и аватарка программы
@@ -175,7 +254,7 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
     def popup_action(self):
         error = QMessageBox()
         error.setWindowTitle("Ошибка")
-        error.setText("Введите точки по X и по Y для выполнения этого действия")
+        error.setText("Введите точки X и Y для выполнения этого действия")
         error.setIcon(QMessageBox.Warning)
         error.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
         error.setDefaultButton(QMessageBox.Ok)
@@ -238,6 +317,8 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         sheet = workbook.active
         self.tableWidget.setRowCount(sheet.max_row)
         self.tableWidget.setColumnCount(sheet.max_column)
+        self.tableWidget.setColumnWidth(0, 120)
+        self.tableWidget.setColumnWidth(1, 120)
         list_values = list(sheet.values)
         self.tableWidget.setHorizontalHeaderLabels(list_values[0])
         row_index = 0
@@ -262,7 +343,7 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         plt.clf()
         self.canvas.draw()
 
-    # метод, которая показывает точки на графике и задаёт диапазон по x и по y
+    # метод, который показывает точки на графике и задаёт диапазон по x и по y
     def points(self):
         plt.scatter(self.value_table_X, self.value_table_Y, color='red', s=15)  # точки
         plt.xlim([min(self.value_table_X) - 2, max(self.value_table_X) + 2])
