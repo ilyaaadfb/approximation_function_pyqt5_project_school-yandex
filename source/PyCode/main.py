@@ -17,8 +17,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from main_interface import Ui_Function_approximation
 
 
-
-
 class MainWindow(QMainWindow, Ui_Function_approximation):
     # интерфейс
     def __init__(self):
