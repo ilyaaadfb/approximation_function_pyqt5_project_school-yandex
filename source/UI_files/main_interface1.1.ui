@@ -423,12 +423,12 @@ border:0.5px solid black;</string>
   </action>
   <action name="action_rus">
    <property name="text">
-    <string>Английский</string>
+    <string>Русский</string>
    </property>
   </action>
   <action name="action_en">
    <property name="text">
-    <string>Русский</string>
+    <string>Английский</string>
    </property>
   </action>
   <action name="action_reference">
