@@ -88,6 +88,7 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         self.comboBox.setItemText(4, "Экспоненциальная II типа: 'y = a*b^x'")
         self.comboBox.setItemText(5, "Логарифмическая: 'y = b + a*log(x)'")
         self.comboBox.setItemText(6, "Гиперболическая:  'y = b+a/x'")
+        self.label.setText("Выберите вид аппроксимации:")
 
     # английский язык
     def leng_en(self):
@@ -108,6 +109,7 @@ class MainWindow(QMainWindow, Ui_Function_approximation):
         self.comboBox.setItemText(4, "Exponential_type_2_func: 'y = a*b^x'")
         self.comboBox.setItemText(5, "Logarithmic_func: 'y = b + a*log(x)'")
         self.comboBox.setItemText(6, "Hyperbolic_func:  'y = b+a/x'")
+        self.label.setText("Select the type of approximation")
 
         # горячие клавиши
 
