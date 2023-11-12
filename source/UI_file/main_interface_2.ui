@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Function_approximation</class>
+ <widget class="QMainWindow" name="Function_approximation">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>932</width>
+    <height>671</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(207, 207, 207);
+border-color: rgb(207, 207, 207);</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" rowspan="3">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QTableWidget" name="tableWidget">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+            </property>
+            <column>
+             <property name="text">
+              <string>X</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="spin">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="button_file">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+            </property>
+            <property name="text">
+             <string>Выбор файла</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clear_button_table">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+            </property>
+            <property name="text">
+             <string>Очистить таблицу</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="styleSheet">
+             <string notr="true">border-radius: 10px;
+font-size: 12px;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
+            </property>
+            <property name="text">
+             <string>Выберите вид аппроксимации:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QRadioButton" name="linear_radioButton">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+              </property>
+              <property name="text">
+               <string>Линейная</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="nonlinear_radioButton">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 15px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+              </property>
+              <property name="text">
+               <string>Нелинейная</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Квадратичная: 'y = a*x^2+b*x+c'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Кубическая: 'y = a*x^3 + b*x^2 + c*x + d'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Степенная:  'y = k*x^n'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Экспоненциальная I типа: 'y = a*exp(b^x)'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Экспоненциальная II типа: 'y = a*b^x'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Логарифмическая: 'y = b + a*log(x)'</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Гиперболическая:  'y = b+a/x'</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="compare_checkBox">
+              <property name="styleSheet">
+               <string notr="true">font-size: 15px;
+border-radius: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;</string>
+              </property>
+              <property name="text">
+               <string>Сравнить</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="run_button">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 25px;
+	color: #D2691E;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton::hover{
+	background-color : lightgreen;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>ПУСК</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <widget class="QTextBrowser" name="textBrowser">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 12px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="clear_button_browser">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 15px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+          </property>
+          <property name="text">
+           <string>Очисть браузер</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0" rowspan="5">
+         <widget class="QTableView" name="view">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="id_spin">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+font-size: 20px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="del_button">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+          </property>
+          <property name="text">
+           <string>Удалить</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="save_button">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+          </property>
+          <property name="text">
+           <string>Сохранить</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QPushButton" name="change_button">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	font-size: 20px;
+	color: #0d7907;
+	font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+	border:0.5px solid black;
+}
+QPushButton:hover {
+    background-color: lightgreen;
+}</string>
+          </property>
+          <property name="text">
+           <string>Загрузить</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QTableWidget" name="table_for_db">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px;
+color: #0d7907;
+font: 1.2rem &quot;Fira Sans&quot;, sans-serif;
+border:0.5px solid black;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>932</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>Язык</string>
+     </property>
+     <addaction name="action_rus"/>
+     <addaction name="action_en"/>
+    </widget>
+    <addaction name="menu_3"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="action_reference"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <action name="action_exit">
+   <property name="text">
+    <string>Выход                                       Ctrl + Alt + Q</string>
+   </property>
+  </action>
+  <action name="action_rus">
+   <property name="text">
+    <string>Русский</string>
+   </property>
+  </action>
+  <action name="action_en">
+   <property name="text">
+    <string>Английский</string>
+   </property>
+  </action>
+  <action name="action_reference">
+   <property name="text">
+    <string>О прогрмме                                   F1</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
